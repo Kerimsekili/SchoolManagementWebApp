@@ -1,0 +1,31 @@
+﻿@using SchoolManagementWebApp.Models;
+@model List<OkulYonetim>
+
+@{
+    ViewBag.Title = "OkulYonetimView";
+    Layout = "~/Views/Shared/_OkulLayout.cshtml";
+}
+
+<table class="table table-bordered">
+    <tr>
+        <th>ID</th>
+        <th>Ad Soyad</th>
+        <th>Kayıt Tarihi</th>
+        <th>Görevi</th>
+        <th>Yönetim Tipi</th>
+    </tr>
+    @foreach (var x in Model)
+    {
+        <tr>
+            <td>@x.Id</td>
+            <td>@x.AdSoyad</td>
+            <td>@x.Gorevi</td>
+            <td>@x.YonetimTip</td>
+            <td><a href="/Okul/YonetimSil/@x.Id" class="btn btn-danger">Sil</a></td>
+            <td><a href="/Okul/YonetimGüncelle/@x.Id" class="btn btn-warning">Güncelle</a></td>
+        </tr>
+
+    }
+</table>
+<a href="/Okul/YonetimEkle" class="btn btn-primary">Yeni Görevli</a>
+

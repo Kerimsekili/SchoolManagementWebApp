@@ -1,0 +1,28 @@
+﻿@model SchoolManagementWebApp.Models.OkulYonetim
+@{
+    ViewBag.Title = "GorevliGetir";
+    Layout = "~/Views/Shared/_OkulLayout.cshtml";
+}
+
+@using (Html.BeginForm("GorevliGuncelle", "Gorevli", FormMethod.Post))
+
+
+{
+    <form class="form-group" method="post">
+        <div style="margin-bottom: 15px">
+            @Html.HiddenFor(y => y.Id)
+            @Html.LabelFor(x => x.AdSoyad)
+            @Html.TextBoxFor(x => x.AdSoyad, new { @class = "form-control" })
+        </div>
+        <div style="margin-bottom: 15px">
+            @Html.LabelFor(x => x.Gorevi)
+            @Html.TextBoxFor(x => x.Gorevi, new {@class = "form-control"})
+        </div>
+        <div style="margin-bottom: 15px">
+            @Html.LabelFor(x => x.YonetimTip)
+            @Html.TextBoxFor(x => x.YonetimTip, new {@class = "form-control"})
+        </div>
+        <button class="btn btn-success">Güncelle</button>
+    </form>
+}
+
