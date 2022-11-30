@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="9012f463e94448c0b0d616fcce9251dd" Name="Diagram1">
+        <EntityTypeShape EntityType="TaskDbModel.Der" Width="1.5" PointX="3" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="TaskDbModel.Ogrenci" Width="1.5" PointX="3" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="TaskDbModel.OgrenciDer" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="TaskDbModel.OkulYonetim" Width="1.5" PointX="0.75" PointY="1" IsExpanded="true" />
+        <AssociationConnector Association="TaskDbModel.FK_Ders_To_OkulYonetim" ManuallyRouted="false" />
+        <AssociationConnector Association="TaskDbModel.FK_OgrenciDers_to_Ders" ManuallyRouted="false" />
+        <AssociationConnector Association="TaskDbModel.FK_OgrenciDers_to_Ogrenci" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

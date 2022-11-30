@@ -1,0 +1,271 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="TaskDbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Ders">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Ad" Type="varchar" MaxLength="50" />
+          <Property Name="Kredi" Type="int" />
+          <Property Name="OkulYonetimId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Ogrenci">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AdSoyad" Type="varchar" MaxLength="50" />
+          <Property Name="KayitTarih" Type="date" />
+          <Property Name="OgrenciNo" Type="int" />
+          <Property Name="DTarih" Type="date" />
+          <Property Name="Bolum" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="OgrenciDers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DersId" Type="int" />
+          <Property Name="OgrenciId" Type="int" />
+        </EntityType>
+        <EntityType Name="OkulYonetim">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AdSoyad" Type="varchar" MaxLength="50" />
+          <Property Name="Gorevi" Type="varchar" MaxLength="50" />
+          <Property Name="YonetimTip" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK_Ders_To_OkulYonetim">
+          <End Role="OkulYonetim" Type="Self.OkulYonetim" Multiplicity="1" />
+          <End Role="Ders" Type="Self.Ders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OkulYonetim">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Ders">
+              <PropertyRef Name="OkulYonetimId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OgrenciDers_to_Ders">
+          <End Role="Ders" Type="Self.Ders" Multiplicity="0..1" />
+          <End Role="OgrenciDers" Type="Self.OgrenciDers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ders">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OgrenciDers">
+              <PropertyRef Name="DersId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OgrenciDers_to_Ogrenci">
+          <End Role="Ogrenci" Type="Self.Ogrenci" Multiplicity="0..1" />
+          <End Role="OgrenciDers" Type="Self.OgrenciDers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ogrenci">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OgrenciDers">
+              <PropertyRef Name="OgrenciId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="TaskDbModelStoreContainer">
+          <EntitySet Name="Ders" EntityType="Self.Ders" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Ogrenci" EntityType="Self.Ogrenci" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OgrenciDers" EntityType="Self.OgrenciDers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OkulYonetim" EntityType="Self.OkulYonetim" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Ders_To_OkulYonetim" Association="Self.FK_Ders_To_OkulYonetim">
+            <End Role="OkulYonetim" EntitySet="OkulYonetim" />
+            <End Role="Ders" EntitySet="Ders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OgrenciDers_to_Ders" Association="Self.FK_OgrenciDers_to_Ders">
+            <End Role="Ders" EntitySet="Ders" />
+            <End Role="OgrenciDers" EntitySet="OgrenciDers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OgrenciDers_to_Ogrenci" Association="Self.FK_OgrenciDers_to_Ogrenci">
+            <End Role="Ogrenci" EntitySet="Ogrenci" />
+            <End Role="OgrenciDers" EntitySet="OgrenciDers" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="TaskDbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Der">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Ad" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Kredi" Type="Int32" />
+          <Property Name="OkulYonetimId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="OkulYonetim" Relationship="Self.FK_Ders_To_OkulYonetim" FromRole="Ders" ToRole="OkulYonetim" />
+          <NavigationProperty Name="OgrenciDers" Relationship="Self.FK_OgrenciDers_to_Ders" FromRole="Ders" ToRole="OgrenciDers" />
+        </EntityType>
+        <EntityType Name="Ogrenci">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AdSoyad" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="KayitTarih" Type="DateTime" Precision="0" />
+          <Property Name="OgrenciNo" Type="Int32" />
+          <Property Name="DTarih" Type="DateTime" Precision="0" />
+          <Property Name="Bolum" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="OgrenciDers" Relationship="Self.FK_OgrenciDers_to_Ogrenci" FromRole="Ogrenci" ToRole="OgrenciDers" />
+        </EntityType>
+        <EntityType Name="OgrenciDer">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DersId" Type="Int32" />
+          <Property Name="OgrenciId" Type="Int32" />
+          <NavigationProperty Name="Der" Relationship="Self.FK_OgrenciDers_to_Ders" FromRole="OgrenciDers" ToRole="Ders" />
+          <NavigationProperty Name="Ogrenci" Relationship="Self.FK_OgrenciDers_to_Ogrenci" FromRole="OgrenciDers" ToRole="Ogrenci" />
+        </EntityType>
+        <EntityType Name="OkulYonetim">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AdSoyad" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Gorevi" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="YonetimTip" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Ders" Relationship="Self.FK_Ders_To_OkulYonetim" FromRole="OkulYonetim" ToRole="Ders" />
+        </EntityType>
+        <Association Name="FK_Ders_To_OkulYonetim">
+          <End Role="OkulYonetim" Type="Self.OkulYonetim" Multiplicity="1" />
+          <End Role="Ders" Type="Self.Der" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OkulYonetim">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Ders">
+              <PropertyRef Name="OkulYonetimId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OgrenciDers_to_Ders">
+          <End Role="Ders" Type="Self.Der" Multiplicity="0..1" />
+          <End Role="OgrenciDers" Type="Self.OgrenciDer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ders">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OgrenciDers">
+              <PropertyRef Name="DersId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OgrenciDers_to_Ogrenci">
+          <End Role="Ogrenci" Type="Self.Ogrenci" Multiplicity="0..1" />
+          <End Role="OgrenciDers" Type="Self.OgrenciDer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ogrenci">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OgrenciDers">
+              <PropertyRef Name="OgrenciId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="TaskDbEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Ders" EntityType="Self.Der" />
+          <EntitySet Name="Ogrencis" EntityType="Self.Ogrenci" />
+          <EntitySet Name="OgrenciDers" EntityType="Self.OgrenciDer" />
+          <EntitySet Name="OkulYonetims" EntityType="Self.OkulYonetim" />
+          <AssociationSet Name="FK_Ders_To_OkulYonetim" Association="Self.FK_Ders_To_OkulYonetim">
+            <End Role="OkulYonetim" EntitySet="OkulYonetims" />
+            <End Role="Ders" EntitySet="Ders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OgrenciDers_to_Ders" Association="Self.FK_OgrenciDers_to_Ders">
+            <End Role="Ders" EntitySet="Ders" />
+            <End Role="OgrenciDers" EntitySet="OgrenciDers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OgrenciDers_to_Ogrenci" Association="Self.FK_OgrenciDers_to_Ogrenci">
+            <End Role="Ogrenci" EntitySet="Ogrencis" />
+            <End Role="OgrenciDers" EntitySet="OgrenciDers" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="TaskDbModelStoreContainer" CdmEntityContainer="TaskDbEntities">
+          <EntitySetMapping Name="Ders">
+            <EntityTypeMapping TypeName="TaskDbModel.Der">
+              <MappingFragment StoreEntitySet="Ders">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Ad" ColumnName="Ad" />
+                <ScalarProperty Name="Kredi" ColumnName="Kredi" />
+                <ScalarProperty Name="OkulYonetimId" ColumnName="OkulYonetimId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Ogrencis">
+            <EntityTypeMapping TypeName="TaskDbModel.Ogrenci">
+              <MappingFragment StoreEntitySet="Ogrenci">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="AdSoyad" ColumnName="AdSoyad" />
+                <ScalarProperty Name="KayitTarih" ColumnName="KayitTarih" />
+                <ScalarProperty Name="OgrenciNo" ColumnName="OgrenciNo" />
+                <ScalarProperty Name="DTarih" ColumnName="DTarih" />
+                <ScalarProperty Name="Bolum" ColumnName="Bolum" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OgrenciDers">
+            <EntityTypeMapping TypeName="TaskDbModel.OgrenciDer">
+              <MappingFragment StoreEntitySet="OgrenciDers">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="DersId" ColumnName="DersId" />
+                <ScalarProperty Name="OgrenciId" ColumnName="OgrenciId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OkulYonetims">
+            <EntityTypeMapping TypeName="TaskDbModel.OkulYonetim">
+              <MappingFragment StoreEntitySet="OkulYonetim">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="AdSoyad" ColumnName="AdSoyad" />
+                <ScalarProperty Name="Gorevi" ColumnName="Gorevi" />
+                <ScalarProperty Name="YonetimTip" ColumnName="YonetimTip" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
