@@ -1,0 +1,19 @@
+﻿@model SchoolManagementWebApp.Models.OgrenciDer
+@{
+    ViewBag.Title = "OgrenciDersEkle";
+    Layout = "~/Views/Shared/_OkulLayout.cshtml";
+}
+
+<h2>Öğrenci-Ders Seçim </h2>
+<form class="form-group" method="post">
+    <div style="margin-bottom:15px">
+        @Html.LabelFor(x => x.OgrenciId)
+        @Html.TextBoxFor(x => x.OgrenciId, new { @class = "form-control" })
+    </div>
+    <div style="margin-bottom:15px">
+        @Html.LabelFor(x => x.DersId)
+        @Html.TextBoxFor(x => x.DersId, new { @class = "form-control" })
+    </div>
+    <button class="btn btn-info">Kaydet</button>
+</form>
+

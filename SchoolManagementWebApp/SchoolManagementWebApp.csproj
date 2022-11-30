@@ -131,6 +131,7 @@
     <Compile Include="Controllers\DersController.cs" />
     <Compile Include="Controllers\GorevliController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\OgrenciDersController.cs" />
     <Compile Include="Controllers\OkulController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -228,6 +229,9 @@
     <Content Include="Views\Ders\Index.cshtml" />
     <Content Include="Views\Ders\DersEkle.cshtml" />
     <Content Include="Views\Ders\DersGetir.cshtml" />
+    <Content Include="Views\OgrenciDers\Index.cshtml" />
+    <Content Include="Views\OgrenciDers\OgrenciDersEkle.cshtml" />
+    <Content Include="Views\OgrenciDers\OgrenciDersGetir.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
