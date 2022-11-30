@@ -1,0 +1,30 @@
+﻿@using SchoolManagementWebApp.Models;
+@model List<Der>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_OkulLayout.cshtml";
+}
+
+<table class="table table-bordered">
+    <tr>
+        <th>ID</th>
+        <th>Ders Adı</th>
+        <th>Kredisi</th>
+        <th>Dersi Veren Kişi</th>
+
+    </tr>
+    @foreach (var x in Model)
+    {
+        <tr>
+            <td>@x.Id</td>
+            <td>@x.Ad</td>
+            <td>@x.Kredi</td>
+            <td>@x.OkulYonetim.AdSoyad</td>
+            <td><a href="/Ders/DersSil/@x.Id" class="btn btn-danger">Sil</a></td>
+            <td><a href="/Ders/DersGetir/@x.Id" class="btn btn-warning">Güncelle</a></td>
+        </tr>
+
+    }
+</table>
+<a href="/Ders/DersEkle" class="btn btn-primary">Yeni Ders</a>
+
